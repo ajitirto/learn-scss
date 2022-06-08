@@ -1,0 +1,224 @@
+.button {
+    padding: 3px 10px;
+    font-size: 12px;
+    border-radius: 3px;
+    border: 1px solid #e1e4e8;
+  }
+
+  nav {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  
+    li { display: inline-block; }
+  
+    a {
+      display: block;
+      padding: 6px 12px;
+      text-decoration: none;
+    }
+  }
+
+  .alert, .warning {
+    ul, p {
+      margin-right: 0;
+      margin-left: 0;
+      padding-bottom: 0;
+    }
+  }
+
+
+  ul > {
+    li {
+      list-style-type: none;
+    }
+  }
+  
+  h2 {
+    + p {
+      border-top: 1px solid gray;
+    }
+  }
+  
+  p {
+    ~ {
+      span {
+        opacity: 0.8;
+      }
+    }
+  }
+
+
+  @mixin define-emoji($name, $glyph) {
+    span.emoji-#{$name} {
+      font-family: IconFont;
+      font-variant: normal;
+      font-weight: normal;
+      content: $glyph;
+      color: red;
+    }
+  }
+  
+  @include define-emoji("women-holding-hands", "👭");
+
+  .circle {
+    $size: 100px;
+    width: $size;
+    height: $size;
+    border-radius: $size * 0.5;
+  }
+
+//   interpolation
+  @mixin prefix($property, $value, $prefixes) {
+    @each $prefix in $prefixes {
+      -#{$prefix}-#{$property}: $value;
+    }
+    #{$property}: $value;
+  }
+  
+  .gray {
+    @include prefix(filter, grayscale(50%), moz webkit );
+  }
+
+
+//   nesting
+
+.enlarge {
+    font-size: 14px;
+    transition: {
+      property: font-size;
+      duration: 4s;
+      delay: 2s;
+    }
+  
+    &:hover { font-size: 36px; }
+  }
+
+  .info-page {
+    margin: auto {
+      bottom: 10px;
+      top: 2px;
+    }
+  }
+
+
+  $rounded-corners: true;
+
+.button {
+  border: 1px solid black;
+  border-radius: if($rounded-corners, 5px, null);
+}
+
+$primary: #81899b;
+$accent: #302e24;
+$warn: #dfa612;
+
+:root {
+  --primary: #{$primary};
+  --accent: #{$accent};
+  --warn: #{$warn};
+
+  // Even though this looks like a Sass variable, it's valid CSS so it's not
+  // evaluated.
+  --consumed-by-js: $primary;
+}
+
+
+// Parent Selector
+
+.alert {
+    // The parent selector can be used to add pseudo-classes to the outer
+    // selector.
+    &:hover {
+      font-weight: bold;
+    }
+  
+    // It can also be used to style the outer selector in a certain context, such
+    // as a body set to use a right-to-left language.
+    [dir=rtl] & {
+      margin-left: 0;
+      margin-right: 10px;
+    }
+  
+    // You can even use it as an argument to pseudo-class selectors.
+    :not(&) {
+      opacity: 0.8;
+    }
+}
+
+/* Adding suffixed */
+
+.accordion {
+    max-width: 600px;
+    margin: 4rem auto;
+    width: 90%;
+    font-family: "Raleway", sans-serif;
+    background: #f4f4f4;
+  
+    &__copy {
+      display: none;
+      padding: 1rem 1.5rem 2rem 1.5rem;
+      color: gray;
+      line-height: 1.6;
+      font-size: 14px;
+      font-weight: 500;
+  
+      &--open {
+        display: block;
+      }
+    }
+  }
+
+//   in sass script
+
+#main aside:hover,
+.sidebar p {
+  parent-selector: &;
+  // => ((unquote(".main") unquote("aside:hover")),
+  //     (unquote(".sidebar") unquote("p")))
+}
+
+@mixin app-background($color) {
+    #{if(&, '&.app-background', '.app-background')} {
+      background-color: $color;
+      color: rgba(#fff, 0.75);
+    }
+  }
+  
+  @include app-background(#036);
+  
+  .sidebar {
+    @include app-background(#c6538c);
+  }
+
+
+//   Placeholder selector
+
+.alert:hover, %strong-alert {
+    font-weight: bold;
+  }
+  
+  %strong-alert:hover {
+    color: red;
+  }
+
+  %toolbelt {
+    box-sizing: border-box;
+    border-top: 1px rgba(#000, .12) solid;
+    padding: 16px 0;
+    width: 100%;
+  
+    &:hover { border: 2px rgba(#000, .5) solid; }
+  }
+  
+  .action-buttons {
+    @extend %toolbelt;
+    color: #4285f4;
+  }
+  
+  .reset-buttons {
+    @extend %toolbelt;
+    color: #cddc39;
+  }

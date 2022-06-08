@@ -1,0 +1,69 @@
+code {
+  border-radius: 0.1rem;
+  box-shadow: 0 0.5rem 1rem rgba(34, 34, 34, 0.15);
+}
+
+.indah {
+  border-radius: 0.1rem;
+  box-shadow: 0 0.5rem 1rem rgba(34, 34, 34, 0.15);
+  color: red;
+}
+
+.content {
+  global: global value;
+  local: local value;
+}
+
+.sidebar {
+  global: global value;
+}
+
+.content {
+  value: second global value;
+}
+
+.sidebar {
+  value: second global value;
+}
+
+.button {
+  background-color: #750c30;
+  border: 1px solid #f5ebfc;
+  border-radius: 3px;
+}
+
+.icon-mail {
+  background-image: url("/icons/mail.svg");
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.pulse {
+  animation-name: inline-uodukym;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes inline-uodukym {
+  from {
+    background-color: yellow;
+  }
+  to {
+    background-color: red;
+  }
+}
+
+.example {
+  unquoted: string;
+}
+
+.slider {
+  position: absolute;
+  left: 10px;
+  transition: left 2.2s;
+}
+.slider:hover {
+  left: 120px;
+}
+
+/*# sourceMappingURL=indah.css.map */
